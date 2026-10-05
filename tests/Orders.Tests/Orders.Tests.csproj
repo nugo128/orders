@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Tests run against the real provided file, copied next to the test assembly. -->
     <None Include="..\..\orders.json" Link="orders.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
