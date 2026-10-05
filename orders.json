@@ -1,0 +1,36 @@
+[
+  {
+    "orderId": 1,
+    "customer": "Nino",
+    "status": "completed",
+    "items": [
+      { "product": "Keyboard", "quantity": 2, "price": 50 },
+      { "product": "Mouse", "quantity": 1, "price": 25 }
+    ]
+  },
+  {
+    "orderId": 2,
+    "customer": "Giorgi",
+    "status": "cancelled",
+    "items": [
+      { "product": "Keyboard", "quantity": 1, "price": 50 }
+    ]
+  },
+  {
+    "orderId": 3,
+    "customer": "Nino",
+    "status": "completed",
+    "items": [
+      { "product": "Mouse", "quantity": 2, "price": 25 },
+      { "product": "Monitor", "quantity": 1, "price": 200 }
+    ]
+  },
+  {
+    "orderId": 4,
+    "customer": "Ana",
+    "status": "completed",
+    "items": [
+      { "product": "Keyboard", "quantity": 1, "price": 50 }
+    ]
+  }
+]
