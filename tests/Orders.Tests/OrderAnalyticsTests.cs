@@ -49,6 +49,30 @@ public class OrderAnalyticsTests
     }
 
     [Fact]
+    public void Tied_products_are_sorted_ignoring_letter_case()
+    {
+        var summary = OrderAnalytics.Summarize(
+        [
+            CreateOrder(1, "Ana", "completed", ("Mouse", 1, 25m), ("keyboard", 1, 50m)),
+        ]);
+
+        Assert.Equal(new[] { "keyboard", "Mouse" }, summary.MostPopularProducts);
+    }
+
+    [Fact]
+    public void Units_sold_are_added_up_without_overflow()
+    {
+        var summary = OrderAnalytics.Summarize(
+        [
+            CreateOrder(1, "Ana", "completed", ("Big", int.MaxValue, 0m), ("Small", 1, 1m)),
+            CreateOrder(2, "Ana", "completed", ("Big", int.MaxValue, 0m)),
+        ]);
+
+        Assert.Equal(new[] { "Big" }, summary.MostPopularProducts);
+        Assert.Equal(2L * int.MaxValue, summary.MostPopularUnits);
+    }
+
+    [Fact]
     public void A_single_top_product_is_reported_alone()
     {
         var summary = OrderAnalytics.Summarize(

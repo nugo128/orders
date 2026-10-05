@@ -90,6 +90,16 @@ public class CliTests
         Assert.Contains("Usage:", error);
     }
 
+    [Fact]
+    public void Empty_file_path_is_a_usage_error()
+    {
+        var (exitCode, output, error) = Run("--file", "", "stats");
+
+        Assert.Equal(2, exitCode);
+        Assert.Empty(output);
+        Assert.Contains("Usage:", error);
+    }
+
     private static (int ExitCode, string Output, string Error) Run(params string[] args)
     {
         var output = new StringWriter();

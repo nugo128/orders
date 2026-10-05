@@ -5,8 +5,8 @@ public sealed record SalesSummary(
     decimal TotalSales,
     decimal? AverageOrderValue,
     IReadOnlyList<string> MostPopularProducts,
-    int MostPopularUnits,
-    IReadOnlyDictionary<string, int> UnitsByProduct,
+    long MostPopularUnits,
+    IReadOnlyDictionary<string, long> UnitsByProduct,
     IReadOnlyDictionary<string, int> NotCountedByStatus);
 
 public static class OrderAnalytics
@@ -15,7 +15,7 @@ public static class OrderAnalytics
     {
         var completedOrders = 0;
         var totalSales = 0m;
-        var unitsByProduct = new Dictionary<string, int>();
+        var unitsByProduct = new Dictionary<string, long>();
         var notCountedByStatus = new Dictionary<string, int>();
 
         foreach (var order in orders)
@@ -43,7 +43,7 @@ public static class OrderAnalytics
         var mostPopularProducts = unitsByProduct
             .Where(entry => entry.Value == mostPopularUnits)
             .Select(entry => entry.Key)
-            .Order(StringComparer.Ordinal)
+            .Order(StringComparer.OrdinalIgnoreCase)
             .ToList();
 
         return new SalesSummary(

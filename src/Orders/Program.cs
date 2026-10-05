@@ -66,7 +66,7 @@ public static class Program
         var fileOption = Array.IndexOf(args, "--file");
         if (fileOption >= 0)
         {
-            if (fileOption == args.Length - 1)
+            if (fileOption == args.Length - 1 || string.IsNullOrWhiteSpace(args[fileOption + 1]))
             {
                 return null;
             }
@@ -139,7 +139,7 @@ public static class Program
         var productWidth = summary.UnitsByProduct.Keys.Max(product => product.Length);
         output.WriteLine();
         output.WriteLine("Units sold per product:");
-        foreach (var (product, units) in summary.UnitsByProduct.OrderByDescending(entry => entry.Value).ThenBy(entry => entry.Key, StringComparer.Ordinal))
+        foreach (var (product, units) in summary.UnitsByProduct.OrderByDescending(entry => entry.Value).ThenBy(entry => entry.Key, StringComparer.OrdinalIgnoreCase))
         {
             output.WriteLine($"  {product.PadRight(productWidth)}  {units}");
         }

@@ -23,6 +23,7 @@ public static class OrderLoader
         var orders = Deserialize(json) ?? throw new InvalidDataException("The file must contain an array of orders, not null.");
         var seenIds = new HashSet<int>();
         var validated = new List<Order>(orders.Count);
+        var grandTotal = 0m;
 
         for (var index = 0; index < orders.Count; index++)
         {
@@ -35,6 +36,15 @@ public static class OrderLoader
             if (FindProblem(order) is { } problem)
             {
                 throw new InvalidDataException($"Order {order.OrderId}: {problem}.");
+            }
+
+            try
+            {
+                grandTotal += order.Total;
+            }
+            catch (OverflowException)
+            {
+                throw new InvalidDataException($"Order {order.OrderId}: amounts are too large to add up.");
             }
 
             validated.Add(order);
